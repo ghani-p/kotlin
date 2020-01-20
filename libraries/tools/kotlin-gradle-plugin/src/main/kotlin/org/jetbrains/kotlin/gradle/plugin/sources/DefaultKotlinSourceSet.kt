@@ -83,6 +83,9 @@ class DefaultKotlinSourceSet(
         dependencies f@{ ConfigureUtil.configure(configureClosure, this@f) }
 
     override fun dependsOn(other: KotlinSourceSet) {
+        if (other === this)
+            return
+
         dependsOnSourceSetsImpl.add(other)
 
         // Fail-fast approach: check on each new added edge and report a circular dependency at once when the edge is added.
