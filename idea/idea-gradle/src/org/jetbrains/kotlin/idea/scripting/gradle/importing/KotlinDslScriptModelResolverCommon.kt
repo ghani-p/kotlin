@@ -80,11 +80,11 @@ abstract class KotlinDslScriptModelResolverCommon : AbstractProjectResolverExten
     protected fun processScriptModel(
         ideProject: DataNode<ProjectData>,
         model: KotlinDslScriptsModel,
-        projectName: String
+        buildId: String
     ) {
         if (model is BrokenKotlinDslScriptsModel) {
             LOG.error(
-                "Couldn't get KotlinDslScriptsModel for $projectName:\n${model.message}\n${model.stackTrace}"
+                "Couldn't get KotlinDslScriptsModel for $buildId:\n${model.message}\n${model.stackTrace}"
             )
         } else {
             ideProject.KOTLIN_DSL_SCRIPT_MODELS.addAll(model.toListOfScriptModels())

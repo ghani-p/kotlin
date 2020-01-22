@@ -33,12 +33,20 @@ class KotlinDslScriptModelResolver : KotlinDslScriptModelResolverCommon() {
         root: Build,
         ideProject: DataNode<ProjectData>
     ) {
-        root.projects.forEach {
-            if (it.projectIdentifier.projectPath == ":") {
-                resolverCtx.models.getModel(it, KotlinDslScriptsModel::class.java)?.let { model ->
-                    processScriptModel(ideProject, model, it.projectIdentifier.projectPath)
-                }
+        val rootProject = root.projects.singleOrNull { it.projectIdentifier.projectPath == ":" }
+        if (rootProject == null) {
+            LOG.error("Cannot find root project for build ${root.anonymousBuildId}")
+        } else {
+            val model = resolverCtx.models.getModel(rootProject, KotlinDslScriptsModel::class.java)
+            if (model != null) {
+                processScriptModel(ideProject, model, root.anonymousBuildId)
             }
         }
     }
+
+    /**
+     * Build id for exception reporting without user sensitive data
+     */
+    private val Build.anonymousBuildId: String
+        get() = buildIdentifier.rootDir.path // todo: relative to idea project root dir
 }
