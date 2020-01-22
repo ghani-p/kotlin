@@ -12320,6 +12320,11 @@ public class LocalInspectionTestGenerated extends AbstractLocalInspectionTest {
             runTest("idea/testData/inspectionsLocal/trailingComma/changeCommaPosition4.kt");
         }
 
+        @TestMetadata("changeCommaPosition5.kt")
+        public void testChangeCommaPosition5() throws Exception {
+            runTest("idea/testData/inspectionsLocal/trailingComma/changeCommaPosition5.kt");
+        }
+
         @TestMetadata("removeComma.kt")
         public void testRemoveComma() throws Exception {
             runTest("idea/testData/inspectionsLocal/trailingComma/removeComma.kt");
