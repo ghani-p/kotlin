@@ -1289,6 +1289,69 @@ public inline fun CharSequence.reduceRightOrNull(operation: (Char, acc: Char) ->
 }
 
 /**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <R> CharSequence.scan(initial: R, operation: (acc: R, Char) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <R> CharSequence.scanIndexed(initial: R, operation: (index: Int, acc: R, Char) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun CharSequence.scanReduce(operation: (acc: Char, Char) -> Char): List<Char> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Char>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun CharSequence.scanReduceIndexed(operation: (index: Int, acc: Char, Char) -> Char): List<Char> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Char>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
  * Returns the sum of all values produced by [selector] function applied to each character in the char sequence.
  */
 public inline fun CharSequence.sumBy(selector: (Char) -> Int): Int {

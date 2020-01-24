@@ -1963,6 +1963,72 @@ public inline fun <S, T : S> List<T>.reduceRightOrNull(operation: (T, acc: S) ->
 }
 
 /**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <T, R> Iterable<T>.scan(initial: R, operation: (acc: R, T) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <T, R> Iterable<T>.scanIndexed(initial: R, operation: (index: Int, acc: R, T) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <S, T : S> Iterable<T>.scanReduce(operation: (acc: S, T) -> S): List<S> {
+    val iterator = this.iterator()
+    if (!iterator.hasNext()) return emptyList()
+    var accumulator: S = iterator.next()
+    val result = ArrayList<S>().apply { add(accumulator) }
+    while (iterator.hasNext()) {
+        accumulator = operation(accumulator, iterator.next())
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <S, T : S> Iterable<T>.scanReduceIndexed(operation: (index: Int, acc: S, T) -> S): List<S> {
+    val iterator = this.iterator()
+    if (!iterator.hasNext()) return emptyList()
+    var index = 1
+    var accumulator: S = iterator.next()
+    val result = ArrayList<S>().apply { add(accumulator) }
+    while (iterator.hasNext()) {
+        accumulator = operation(index++, accumulator, iterator.next())
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
  * Returns the sum of all values produced by [selector] function applied to each element in the collection.
  */
 public inline fun <T> Iterable<T>.sumBy(selector: (T) -> Int): Int {

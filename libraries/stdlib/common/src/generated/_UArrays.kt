@@ -6039,6 +6039,290 @@ public inline fun UShortArray.reduceRightOrNull(operation: (UShort, acc: UShort)
 }
 
 /**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> UIntArray.scan(initial: R, operation: (acc: R, UInt) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> ULongArray.scan(initial: R, operation: (acc: R, ULong) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> UByteArray.scan(initial: R, operation: (acc: R, UByte) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> UShortArray.scan(initial: R, operation: (acc: R, UShort) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> UIntArray.scanIndexed(initial: R, operation: (index: Int, acc: R, UInt) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> ULongArray.scanIndexed(initial: R, operation: (index: Int, acc: R, ULong) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> UByteArray.scanIndexed(initial: R, operation: (index: Int, acc: R, UByte) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun <R> UShortArray.scanIndexed(initial: R, operation: (index: Int, acc: R, UShort) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun UIntArray.scanReduce(operation: (acc: UInt, UInt) -> UInt): List<UInt> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<UInt>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun ULongArray.scanReduce(operation: (acc: ULong, ULong) -> ULong): List<ULong> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<ULong>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun UByteArray.scanReduce(operation: (acc: UByte, UByte) -> UByte): List<UByte> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<UByte>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun UShortArray.scanReduce(operation: (acc: UShort, UShort) -> UShort): List<UShort> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<UShort>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun UIntArray.scanReduceIndexed(operation: (index: Int, acc: UInt, UInt) -> UInt): List<UInt> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<UInt>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun ULongArray.scanReduceIndexed(operation: (index: Int, acc: ULong, ULong) -> ULong): List<ULong> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<ULong>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun UByteArray.scanReduceIndexed(operation: (index: Int, acc: UByte, UByte) -> UByte): List<UByte> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<UByte>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
+@kotlin.internal.InlineOnly
+public inline fun UShortArray.scanReduceIndexed(operation: (index: Int, acc: UShort, UShort) -> UShort): List<UShort> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<UShort>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
  * Returns the sum of all values produced by [selector] function applied to each element in the array.
  */
 @SinceKotlin("1.3")

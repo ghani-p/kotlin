@@ -534,6 +534,107 @@ private class DistinctIterator<T, K>(private val source: Iterator<T>, private va
     }
 }
 
+internal class ScanSequence<T, R>(
+    private val sequence: Sequence<T>,
+    private val initial: R,
+    private val operation: (acc: R, T) -> R
+) : Sequence<R> {
+    override fun iterator(): Iterator<R> = object : Iterator<R> {
+        val iterator = sequence.iterator()
+        var accumulator = initial
+        var yetToReturnInitial = true
+
+        override fun hasNext(): Boolean {
+            return yetToReturnInitial || iterator.hasNext()
+        }
+
+        override fun next(): R {
+            if (yetToReturnInitial) {
+                yetToReturnInitial = false
+            } else {
+                accumulator = operation(accumulator, iterator.next())
+            }
+            return accumulator
+        }
+    }
+}
+
+internal class ScanIndexedSequence<T, R>(
+    private val sequence: Sequence<T>,
+    private val initial: R,
+    private val operation: (index: Int, acc: R, T) -> R
+) : Sequence<R> {
+    override fun iterator(): Iterator<R> = object : Iterator<R> {
+        val iterator = sequence.iterator()
+        var index = -1  // -1 if `initial` is not returned yet
+        var accumulator = initial
+
+        override fun hasNext(): Boolean {
+            return index < 0 || iterator.hasNext()
+        }
+
+        override fun next(): R {
+            if (index >= 0) accumulator = operation(index, accumulator, iterator.next())
+            index += 1
+            return accumulator
+        }
+    }
+}
+
+internal class ScanReduceSequence<S, T : S>(
+    private val sequence: Sequence<T>,
+    private val operation: (acc: S, T) -> S
+) : Sequence<S> {
+    override fun iterator(): Iterator<S> = object : Iterator<S> {
+        val iterator = sequence.iterator()
+        var accumulator: S? = null
+        var yetToReturnInitial = true
+
+        override fun hasNext(): Boolean {
+            return iterator.hasNext()
+        }
+
+        override fun next(): S {
+            if (yetToReturnInitial) {
+                yetToReturnInitial = false
+                accumulator = iterator.next()
+            } else {
+                @Suppress("UNCHECKED_CAST")
+                accumulator = operation(accumulator as S, iterator.next())
+            }
+            @Suppress("UNCHECKED_CAST")
+            return accumulator as S
+        }
+    }
+}
+
+internal class ScanReduceIndexedSequence<S, T : S>(
+    private val sequence: Sequence<T>,
+    private val operation: (index: Int, acc: S, T) -> S
+) : Sequence<S> {
+    override fun iterator(): Iterator<S> = object : Iterator<S> {
+        val iterator = sequence.iterator()
+        var index = 0
+        var accumulator: S? = null
+
+        override fun hasNext(): Boolean {
+            return iterator.hasNext()
+        }
+
+        override fun next(): S {
+            if (index == 0) {
+                accumulator = iterator.next()
+            } else {
+                @Suppress("UNCHECKED_CAST")
+                accumulator = operation(index, accumulator as S, iterator.next())
+            }
+            index += 1
+            @Suppress("UNCHECKED_CAST")
+            return accumulator as S
+        }
+    }
+}
+
 
 private class GeneratorSequence<T : Any>(private val getInitialValue: () -> T?, private val getNextValue: (T) -> T?) : Sequence<T> {
     override fun iterator(): Iterator<T> = object : Iterator<T> {

@@ -13569,6 +13569,608 @@ public inline fun CharArray.reduceRightOrNull(operation: (Char, acc: Char) -> Ch
 }
 
 /**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <T, R> Array<out T>.scan(initial: R, operation: (acc: R, T) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> ByteArray.scan(initial: R, operation: (acc: R, Byte) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> ShortArray.scan(initial: R, operation: (acc: R, Short) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> IntArray.scan(initial: R, operation: (acc: R, Int) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> LongArray.scan(initial: R, operation: (acc: R, Long) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> FloatArray.scan(initial: R, operation: (acc: R, Float) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> DoubleArray.scan(initial: R, operation: (acc: R, Double) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> BooleanArray.scan(initial: R, operation: (acc: R, Boolean) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> CharArray.scan(initial: R, operation: (acc: R, Char) -> R): List<R> {
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <T, R> Array<out T>.scanIndexed(initial: R, operation: (index: Int, acc: R, T) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> ByteArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Byte) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> ShortArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Short) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> IntArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Int) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> LongArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Long) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> FloatArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Float) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> DoubleArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Double) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> BooleanArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Boolean) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun <R> CharArray.scanIndexed(initial: R, operation: (index: Int, acc: R, Char) -> R): List<R> {
+    var index = 0
+    var accumulator = initial
+    val result = ArrayList<R>().apply { add(accumulator) }
+    for (element in this) {
+        accumulator = operation(index++, accumulator, element)
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <S, T : S> Array<out T>.scanReduce(operation: (acc: S, T) -> S): List<S> {
+    val iterator = this.iterator()
+    if (!iterator.hasNext()) return emptyList()
+    var accumulator: S = iterator.next()
+    val result = ArrayList<S>().apply { add(accumulator) }
+    while (iterator.hasNext()) {
+        accumulator = operation(accumulator, iterator.next())
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun ByteArray.scanReduce(operation: (acc: Byte, Byte) -> Byte): List<Byte> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Byte>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun ShortArray.scanReduce(operation: (acc: Short, Short) -> Short): List<Short> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Short>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun IntArray.scanReduce(operation: (acc: Int, Int) -> Int): List<Int> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Int>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun LongArray.scanReduce(operation: (acc: Long, Long) -> Long): List<Long> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Long>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun FloatArray.scanReduce(operation: (acc: Float, Float) -> Float): List<Float> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Float>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun DoubleArray.scanReduce(operation: (acc: Double, Double) -> Double): List<Double> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Double>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun BooleanArray.scanReduce(operation: (acc: Boolean, Boolean) -> Boolean): List<Boolean> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Boolean>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun CharArray.scanReduce(operation: (acc: Char, Char) -> Char): List<Char> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Char>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public inline fun <S, T : S> Array<out T>.scanReduceIndexed(operation: (index: Int, acc: S, T) -> S): List<S> {
+    val iterator = this.iterator()
+    if (!iterator.hasNext()) return emptyList()
+    var index = 1
+    var accumulator: S = iterator.next()
+    val result = ArrayList<S>().apply { add(accumulator) }
+    while (iterator.hasNext()) {
+        accumulator = operation(index++, accumulator, iterator.next())
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun ByteArray.scanReduceIndexed(operation: (index: Int, acc: Byte, Byte) -> Byte): List<Byte> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Byte>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun ShortArray.scanReduceIndexed(operation: (index: Int, acc: Short, Short) -> Short): List<Short> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Short>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun IntArray.scanReduceIndexed(operation: (index: Int, acc: Int, Int) -> Int): List<Int> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Int>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun LongArray.scanReduceIndexed(operation: (index: Int, acc: Long, Long) -> Long): List<Long> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Long>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun FloatArray.scanReduceIndexed(operation: (index: Int, acc: Float, Float) -> Float): List<Float> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Float>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun DoubleArray.scanReduceIndexed(operation: (index: Int, acc: Double, Double) -> Double): List<Double> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Double>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun BooleanArray.scanReduceIndexed(operation: (index: Int, acc: Boolean, Boolean) -> Boolean): List<Boolean> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Boolean>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
+ * DOC
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+@kotlin.internal.InlineOnly
+public inline fun CharArray.scanReduceIndexed(operation: (index: Int, acc: Char, Char) -> Char): List<Char> {
+    if (isEmpty()) return emptyList()
+    var accumulator = this[0]
+    val result = ArrayList<Char>().apply { add(accumulator) }
+    for (index in 1..lastIndex) {
+        accumulator = operation(index, accumulator, this[index])
+        result.add(accumulator)
+    }
+    return result
+}
+
+/**
  * Returns the sum of all values produced by [selector] function applied to each element in the array.
  */
 public inline fun <T> Array<out T>.sumBy(selector: (T) -> Int): Int {

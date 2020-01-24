@@ -1406,6 +1406,50 @@ public inline fun <S, T : S> Sequence<T>.reduceOrNull(operation: (acc: S, T) -> 
 }
 
 /**
+ * DOC
+ *
+ * The operation is _terminal_.
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public fun <T, R> Sequence<T>.scan(initial: R, operation: (acc: R, T) -> R): Sequence<R> {
+    return ScanSequence(this, initial, operation)
+}
+
+/**
+ * DOC
+ *
+ * The operation is _terminal_.
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public fun <T, R> Sequence<T>.scanIndexed(initial: R, operation: (index: Int, acc: R, T) -> R): Sequence<R> {
+    return ScanIndexedSequence(this, initial, operation)
+}
+
+/**
+ * DOC
+ *
+ * The operation is _terminal_.
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public fun <S, T : S> Sequence<T>.scanReduce(operation: (acc: S, T) -> S): Sequence<S> {
+    return ScanReduceSequence(this, operation)
+}
+
+/**
+ * DOC
+ *
+ * The operation is _terminal_.
+ */
+@SinceKotlin("1.3")
+@ExperimentalStdlibApi
+public fun <S, T : S> Sequence<T>.scanReduceIndexed(operation: (index: Int, acc: S, T) -> S): Sequence<S> {
+    return ScanReduceIndexedSequence(this, operation)
+}
+
+/**
  * Returns the sum of all values produced by [selector] function applied to each element in the sequence.
  *
  * The operation is _terminal_.

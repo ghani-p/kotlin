@@ -1037,6 +1037,206 @@ object Aggregates : TemplateGroupBase() {
         }
     }
 
+    val f_scan = fn("scan(initial: R, operation: (acc: R, T) -> R)") {
+        includeDefault()
+        include(CharSequences, ArraysOfUnsigned)
+    } builder {
+        since("1.3")
+        annotation("@ExperimentalStdlibApi")
+
+        specialFor(Iterables, ArraysOfObjects, CharSequences) { inline() }
+        specialFor(ArraysOfPrimitives, ArraysOfUnsigned) { inlineOnly() }
+
+        doc { "DOC" }
+
+        typeParam("R")
+        returns("List<R>")
+        specialFor(Sequences) { returns("Sequence<R>") }
+
+        body {
+            """
+            var accumulator = initial
+            val result = ArrayList<R>().apply { add(accumulator) }
+            for (element in this) {
+                accumulator = operation(accumulator, element)
+                result.add(accumulator)
+            }
+            return result
+            """
+        }
+        body(Sequences) {
+            """
+            return ScanSequence(this, initial, operation)
+            """
+        }
+    }
+
+    val f_scanIndexed = fn("scanIndexed(initial: R, operation: (index: Int, acc: R, T) -> R)") {
+        includeDefault()
+        include(CharSequences, ArraysOfUnsigned)
+    } builder {
+        since("1.3")
+        annotation("@ExperimentalStdlibApi")
+
+        specialFor(Iterables, ArraysOfObjects, CharSequences) { inline() }
+        specialFor(ArraysOfPrimitives, ArraysOfUnsigned) { inlineOnly() }
+
+        doc { "DOC" }
+
+        typeParam("R")
+        returns("List<R>")
+        specialFor(Sequences) { returns("Sequence<R>") }
+
+        body {
+            """
+            var index = 0
+            var accumulator = initial
+            val result = ArrayList<R>().apply { add(accumulator) }
+            for (element in this) {
+                accumulator = operation(index++, accumulator, element)
+                result.add(accumulator)
+            }
+            return result
+            """
+        }
+        body(Sequences) {
+            """
+            return ScanIndexedSequence(this, initial, operation)
+            """
+        }
+    }
+
+    val f_scanReduce = fn("scanReduce(operation: (acc: T, T) -> T)") {
+        include(ArraysOfPrimitives, ArraysOfUnsigned, CharSequences)
+    } builder {
+        since("1.3")
+        annotation("@ExperimentalStdlibApi")
+
+        specialFor(CharSequences) { inline() }
+        specialFor(ArraysOfPrimitives, ArraysOfUnsigned) { inlineOnly() }
+
+        doc { "DOC" }
+
+        returns("List<T>")
+
+        body {
+            """
+            if (isEmpty()) return emptyList()
+            
+            var accumulator = this[0]
+            val result = ArrayList<T>().apply { add(accumulator) }
+            for (index in 1..lastIndex) {
+                accumulator = operation(accumulator, this[index])
+                result.add(accumulator)
+            }
+            return result
+            """
+        }
+    }
+
+    val f_scanReduceIndexed = fn("scanReduceIndexed(operation: (index: Int, acc: T, T) -> T)") {
+        include(ArraysOfPrimitives, ArraysOfUnsigned, CharSequences)
+    } builder {
+        since("1.3")
+        annotation("@ExperimentalStdlibApi")
+
+        specialFor(CharSequences) { inline() }
+        specialFor(ArraysOfPrimitives, ArraysOfUnsigned) { inlineOnly() }
+
+        doc { "DOC" }
+
+        returns("List<T>")
+
+        body {
+            """
+            if (isEmpty()) return emptyList()
+            
+            var accumulator = this[0]
+            val result = ArrayList<T>().apply { add(accumulator) }
+            for (index in 1..lastIndex) {
+                accumulator = operation(index, accumulator, this[index])
+                result.add(accumulator)
+            }
+            return result
+            """
+        }
+    }
+
+    val f_scanReduceSuper = fn("scanReduce(operation: (acc: S, T) -> S)") {
+        include(ArraysOfObjects, Iterables, Sequences)
+    } builder {
+        since("1.3")
+        annotation("@ExperimentalStdlibApi")
+
+        specialFor(ArraysOfObjects, Iterables) { inline() }
+
+        doc { "DOC" }
+
+        typeParam("S")
+        typeParam("T : S")
+        returns("List<S>")
+        specialFor(Sequences) { returns("Sequence<S>") }
+
+        body {
+
+            """
+            val iterator = this.iterator()
+            if (!iterator.hasNext()) return emptyList()
+
+            var accumulator: S = iterator.next()
+            val result = ArrayList<S>().apply { add(accumulator) }
+            while (iterator.hasNext()) {
+                accumulator = operation(accumulator, iterator.next())
+                result.add(accumulator)
+            }
+            return result
+            """
+        }
+        body(Sequences) {
+            """
+            return ScanReduceSequence(this, operation)
+            """
+        }
+    }
+
+    val f_scanReduceIndexedSuper = fn("scanReduceIndexed(operation: (index: Int, acc: S, T) -> S)") {
+        include(ArraysOfObjects, Iterables, Sequences)
+    } builder {
+        since("1.3")
+        annotation("@ExperimentalStdlibApi")
+
+        specialFor(ArraysOfObjects, Iterables) { inline() }
+
+        doc { "DOC" }
+
+        typeParam("S")
+        typeParam("T : S")
+        returns("List<S>")
+        specialFor(Sequences) { returns("Sequence<S>") }
+
+        body {
+
+            """
+            val iterator = this.iterator()
+            if (!iterator.hasNext()) return emptyList()
+
+            var index = 1
+            var accumulator: S = iterator.next()
+            val result = ArrayList<S>().apply { add(accumulator) }
+            while (iterator.hasNext()) {
+                accumulator = operation(index++, accumulator, iterator.next())
+                result.add(accumulator)
+            }
+            return result
+            """
+        }
+        body(Sequences) {
+            """
+            return ScanReduceIndexedSequence(this, operation)
+            """
+        }
+    }
+
     val f_onEach = fn("onEach(action: (T) -> Unit)") {
         include(Iterables, Maps, CharSequences, Sequences)
     } builder {
