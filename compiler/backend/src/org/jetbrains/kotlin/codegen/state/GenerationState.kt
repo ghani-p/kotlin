@@ -263,7 +263,10 @@ class GenerationState private constructor(
 
     val disableOptimization = configuration.get(JVMConfigurationKeys.DISABLE_OPTIMIZATION, false)
 
-    val metadataVersion = configuration.get(CommonConfigurationKeys.METADATA_VERSION) ?: JvmMetadataVersion.INSTANCE
+    val metadataVersion =
+        configuration.get(CommonConfigurationKeys.METADATA_VERSION)
+            ?: if (languageVersionSettings.languageVersion >= LanguageVersion.LATEST_STABLE) JvmMetadataVersion.INSTANCE
+            else JvmMetadataVersion(1, 1, 18)
 
     val globalSerializationBindings = JvmSerializationBindings()
     lateinit var irBasedMapAsmMethod: (FunctionDescriptor) -> Method
